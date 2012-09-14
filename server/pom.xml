@@ -6,6 +6,7 @@
   <packaging>pom</packaging>
   <description>The maven parent for all server components of WatchingStuff.com</description>
   <modules>
+  	<module>storage</module>
   	<module>webapp</module>
   </modules>
 </project>
