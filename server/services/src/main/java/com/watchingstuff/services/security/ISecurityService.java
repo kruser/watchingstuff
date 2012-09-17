@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.watchingstuff.storage.security;
+package com.watchingstuff.services.security;
 
 /**
  * @author kruser
