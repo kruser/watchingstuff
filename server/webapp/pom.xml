@@ -7,7 +7,7 @@
 	</parent>
 	<artifactId>webapp</artifactId>
 	<packaging>war</packaging>
-	<name>WatchingStuff webapp</name>
+	<name>WatchingStuff Webapp</name>
 	<build>
 		<finalName>webapp</finalName>
 		<plugins>
