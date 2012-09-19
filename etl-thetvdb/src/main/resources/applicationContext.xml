@@ -1,0 +1,16 @@
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+	<context:component-scan base-package="com.watchingstuff.etl"/>
+	<bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:db.properties</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="persistenceManager" class="com.watchingstuff.storage.PersistenceManager">
+	 	<constructor-arg index="0" value="${db.host}"/>  
+  		<constructor-arg index="1" value="${db.port}"/>  
+  		<constructor-arg index="2" value="${db.database}"/>  
+	</bean>
+</beans>

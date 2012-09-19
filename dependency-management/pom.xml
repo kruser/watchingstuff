@@ -8,6 +8,7 @@
 	<name>dependency-management</name>
 	<properties>
 		<jersey-version>1.8</jersey-version>
+		<springframework-version>3.0.5.RELEASE</springframework-version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -42,6 +43,21 @@
 				<groupId>com.sun.jersey.contribs</groupId>
 				<artifactId>jersey-spring</artifactId>
 				<version>${jersey-version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-core</artifactId>
+				<version>${springframework-version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-beans</artifactId>
+				<version>${springframework-version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context</artifactId>
+				<version>${springframework-version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
