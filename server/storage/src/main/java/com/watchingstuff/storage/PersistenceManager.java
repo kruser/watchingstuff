@@ -36,9 +36,9 @@ public class PersistenceManager implements IPersistenceManager
 	{
 		try
 		{
-			Mongo mongo = new Mongo(databaseName, databasePort);
+			Mongo mongo = new Mongo(databaseHost, databasePort);
 			LOGGER.info(String.format("Setting up database connection to %s@%s:%d", databaseName, databaseHost, databasePort));
-			databaseConnection = mongo.getDB("mydb");
+			databaseConnection = mongo.getDB(databaseName);
 		}
 		catch (UnknownHostException e)
 		{
