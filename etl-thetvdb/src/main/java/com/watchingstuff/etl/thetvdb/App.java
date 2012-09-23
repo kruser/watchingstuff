@@ -6,11 +6,12 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 /**
  * Synchronizes our database with the thetvdb.com based on the last synchronization
  */
-public class UpdateTvDb 
+public class App 
 {
     public static void main( String[] args )
     {
     	springContextLoad();
+    	new TheTvDbEtl().runEtl();
     }
 
     /**
