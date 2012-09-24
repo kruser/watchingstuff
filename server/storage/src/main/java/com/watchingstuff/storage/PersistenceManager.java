@@ -4,7 +4,8 @@
 package com.watchingstuff.storage;
 
 import java.net.UnknownHostException;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Logger;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
@@ -42,7 +43,7 @@ public class PersistenceManager implements IPersistenceManager
 		}
 		catch (UnknownHostException e)
 		{
-			LOGGER.severe("database connection failed." + e.getMessage());
+			LOGGER.error("database connection failed." + e.getMessage());
 			throw new RuntimeException(e);
 		}
 	}
@@ -79,7 +80,14 @@ public class PersistenceManager implements IPersistenceManager
 		newDoc.put(PROPERTY_NAME_KEY, propertyName);
 		newDoc.put(PROPERTY_NAME_VALUE, propertyValue);
 		
-		collection.update(new BasicDBObject().append(PROPERTY_NAME_KEY, propertyName), newDoc);
+		if (getProperty(propertyName) != null)
+		{
+			collection.update(new BasicDBObject().append(PROPERTY_NAME_KEY, propertyName), newDoc);
+		}
+		else
+		{
+			collection.save(newDoc);
+		}
 	}
 
 }

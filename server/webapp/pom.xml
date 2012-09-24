@@ -38,6 +38,10 @@
 		</dependencies>
 	</dependencyManagement>
 	<dependencies>
+	    <dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>com.sun.jersey</groupId>
 			<artifactId>jersey-server</artifactId>
@@ -64,6 +68,10 @@
 			<groupId>com.watchingstuff</groupId>
 			<artifactId>services</artifactId>
 			<version>${project.parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
 		</dependency>
 	</dependencies>
 </project>
