@@ -6,6 +6,8 @@ package com.watchingstuff.etl.thetvdb;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,7 @@ public class TheTvDbEtl
 	/** this key is registered to ryan@kruseonline.net **/
 	private static String TVDB_API_KEY = "6C5E6E03B728CC24";
 	private static String API_ROOT = "http://www.thetvdb.com/api/";
+	private static String TVDB_ALL_SERIES = "http://thetvdb.com/?string=&searchseriesid=&tab=listseries&function=Search";
 	private static Logger LOGGER = Logger.getLogger(TheTvDbEtl.class.getName());
 
 	@Autowired
@@ -50,7 +53,6 @@ public class TheTvDbEtl
 			LOGGER.info("The ETL process from thetvdb.com has never been run. Starting fresh.");
 
 			List<Long> seriesIds = getAllSeriesIds();
-			LOGGER.info(seriesIds);
 			for (Long seriesId : seriesIds)
 			{
 				updateSeries(seriesId);
@@ -95,21 +97,18 @@ public class TheTvDbEtl
 	 */
 	private List<Long> getAllSeriesIds()
 	{
-		List<Long> seriesIds = new ArrayList<Long>();
-		Document document = RestXmlHelper.getDocument(API_ROOT + "Updates.php?type=series&time=1");
-		NodeList seriesElements = document.getElementsByTagName("Series");
-		LOGGER.info(String.format("Found %d series to inject", seriesElements.getLength()));
-		if (seriesElements.getLength() > 0)
+		List<Long> seriesList = new ArrayList<Long>();
+		
+		String allSeriesPage = RestXmlHelper.httpGet(TVDB_ALL_SERIES);
+		Pattern p = Pattern.compile("\\bid=(\\d+)");
+		Matcher matcher = p.matcher(allSeriesPage);
+		while(matcher.find())
 		{
-			for (int i = 0; i < seriesElements.getLength(); i++)
-			{
-				Node item = seriesElements.item(i);
-				String textContent = item.getTextContent();
-				seriesIds.add(Long.parseLong(textContent));
-			}
-			return seriesIds;
+			String group = matcher.group(1);
+			seriesList.add(Long.parseLong(group));
 		}
-		throw new RuntimeException("Unable to get the list of series");
+		LOGGER.info(String.format("Found %d series from thetvdb.com", seriesList.size()));
+		return seriesList;
 	}
 
 }

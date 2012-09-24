@@ -9,6 +9,7 @@ import java.net.URL;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 
@@ -23,6 +24,27 @@ public class RestXmlHelper
 	public RestXmlHelper()
 	{
 
+	}
+	
+	/**
+	 * Do an HTTP GET (curl, wget) and return the page contents
+	 * 
+	 * @param url
+	 * @return
+	 */
+	public static String httpGet(String url)
+	{
+		try
+		{
+			URL urlObj = new URL(url);
+			HttpURLConnection conn = (HttpURLConnection) urlObj.openConnection();
+			conn.setRequestMethod("GET");
+			return IOUtils.toString(conn.getInputStream());
+		}
+		catch (Exception e)
+		{
+			throw new RuntimeException(e);
+		}
 	}
 
 	/**

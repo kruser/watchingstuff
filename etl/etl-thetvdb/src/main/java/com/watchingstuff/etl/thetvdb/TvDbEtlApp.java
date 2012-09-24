@@ -7,7 +7,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * Synchronizes our database with the thetvdb.com based on the last
  * synchronization
  */
-public class App
+public class TvDbEtlApp
 {
 	public static void main(String[] args)
 	{
