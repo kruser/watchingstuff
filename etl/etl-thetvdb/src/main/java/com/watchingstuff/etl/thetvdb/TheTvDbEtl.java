@@ -52,7 +52,7 @@ public class TheTvDbEtl
 		{
 			LOGGER.info("The ETL process from thetvdb.com has never been run. Starting fresh.");
 
-			List<Long> seriesIds = getAllSeriesIds();
+			List<Long> seriesIds = getAllSeriesIds(true);
 			for (Long seriesId : seriesIds)
 			{
 				updateSeries(seriesId);
@@ -63,12 +63,37 @@ public class TheTvDbEtl
 			Date lastUpdateDate = new Date(lastUpdate);
 			LOGGER.info(String.format("Synching TheTVDB since %s", lastUpdateDate.toString()));
 		}
-		//persistenceManager.saveProperty(PROPERTY_TV_DB_LAST_UPDATE, currentServerTime);
+		// persistenceManager.saveProperty(PROPERTY_TV_DB_LAST_UPDATE,
+		// currentServerTime);
 	}
 
+	/**
+	 * 
+	 * @param seriesId
+	 */
 	private void updateSeries(Long seriesId)
 	{
+		LOGGER.debug(String.format("Updating series %d", seriesId));
+		if (doesSeriesExist(seriesId))
+		{
+			
+		}
+		else
+		{
+			
+		}
+	}
+
+	/**
+	 * Returns true if the series exists in the database, false otherwise
+	 * 
+	 * @param seriesId
+	 * @return
+	 */
+	private boolean doesSeriesExist(Long seriesId)
+	{
 		// TODO Auto-generated method stub
+		return false;
 	}
 
 	/**
@@ -95,19 +120,29 @@ public class TheTvDbEtl
 	 * 
 	 * @return
 	 */
-	private List<Long> getAllSeriesIds()
+	private List<Long> getAllSeriesIds(boolean devMode)
 	{
 		List<Long> seriesList = new ArrayList<Long>();
-		
-		String allSeriesPage = RestXmlHelper.httpGet(TVDB_ALL_SERIES);
-		Pattern p = Pattern.compile("\\bid=(\\d+)");
-		Matcher matcher = p.matcher(allSeriesPage);
-		while(matcher.find())
+		if (devMode)
 		{
-			String group = matcher.group(1);
-			seriesList.add(Long.parseLong(group));
+			seriesList.add(70327l);
+			seriesList.add(70328l);
+			seriesList.add(70329l);
+			seriesList.add(70330l);
+			seriesList.add(70331l);
 		}
-		LOGGER.info(String.format("Found %d series from thetvdb.com", seriesList.size()));
+		else
+		{
+			String allSeriesPage = RestXmlHelper.httpGet(TVDB_ALL_SERIES);
+			Pattern p = Pattern.compile("\\bid=(\\d+)");
+			Matcher matcher = p.matcher(allSeriesPage);
+			while (matcher.find())
+			{
+				String group = matcher.group(1);
+				seriesList.add(Long.parseLong(group));
+			}
+			LOGGER.info(String.format("Found %d series from thetvdb.com", seriesList.size()));
+		}
 		return seriesList;
 	}
 
