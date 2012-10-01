@@ -29,11 +29,11 @@ import com.watchingstuff.storage.IPersistenceManager;
 @Component
 public class TheTvDbEtl
 {
-	private static final String PROPERTY_TV_DB_LAST_UPDATE = "TV_DB_LAST_UPDATE";
 	/** this key is registered to ryan@kruseonline.net **/
-	private static String TVDB_API_KEY = "6C5E6E03B728CC24";
-	private static String API_ROOT = "http://www.thetvdb.com/api/";
-	private static String TVDB_ALL_SERIES = "http://thetvdb.com/?string=&searchseriesid=&tab=listseries&function=Search";
+	private static final String TVDB_API_KEY = "6C5E6E03B728CC24";
+	private static final String API_ROOT = "http://www.thetvdb.com/api/";
+	private static final String TVDB_ALL_SERIES = "http://thetvdb.com/?string=&searchseriesid=&tab=listseries&function=Search";
+	private static final String PROPERTY_TV_DB_LAST_UPDATE = "TV_DB_LAST_UPDATE";
 	private static Logger LOGGER = Logger.getLogger(TheTvDbEtl.class.getName());
 
 	@Autowired
@@ -76,12 +76,23 @@ public class TheTvDbEtl
 		LOGGER.debug(String.format("Updating series %d", seriesId));
 		if (doesSeriesExist(seriesId))
 		{
-			
+
 		}
 		else
 		{
-			
+			retrieveCompleteSeriesInfo(seriesId);
 		}
+	}
+
+	/**
+	 * Gets series and all episode information. Designed to be called to
+	 * populate an series from scratch
+	 * 
+	 * @param seriesId
+	 */
+	private void retrieveCompleteSeriesInfo(Long seriesId)
+	{
+		
 	}
 
 	/**

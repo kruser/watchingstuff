@@ -6,6 +6,7 @@ package com.watchingstuff.storage;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
 import org.bson.BSONObject;
 
@@ -17,7 +18,29 @@ import com.mongodb.DBObject;
  */
 public abstract class BaseDBObject extends HashMap<String, Object> implements DBObject 
 {
+	private static final String PROP_ID = "_id";
+
 	private boolean isPartialObject = false;
+	
+	public BaseDBObject()
+	{
+		this(UUID.randomUUID());
+	}
+	
+	public BaseDBObject(UUID id)
+	{
+		setId(id);
+	}
+	
+	public void setId(UUID id)
+	{
+		put(PROP_ID, id);
+	}
+	
+	public UUID getId()
+	{
+		return (UUID)get(PROP_ID);
+	}
 	
 	/**
 	 * 
