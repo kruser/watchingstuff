@@ -3,11 +3,13 @@
  */
 package com.watchingstuff.etl.thetvdb;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.zip.ZipInputStream;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.watchingstuff.storage.IPersistenceManager;
+import com.watchingstuff.utils.HttpUtils;
 
 /**
  * Has operations to start a new database from scratch or update an existing
@@ -92,7 +95,17 @@ public class TheTvDbEtl
 	 */
 	private void retrieveCompleteSeriesInfo(Long seriesId)
 	{
-		
+		String seriesUrl = String.format("%s%s/series/%d/all/en.zip", API_ROOT, TVDB_API_KEY, seriesId);
+		try
+		{
+			ZipInputStream seriesZip = HttpUtils.downloadZip(seriesUrl);
+			
+
+		}
+		catch (IOException e)
+		{
+			LOGGER.error(String.format("Unable to read series %s", seriesId), e);
+		}
 	}
 
 	/**
@@ -115,7 +128,7 @@ public class TheTvDbEtl
 	 */
 	private long getCurrentServerTime()
 	{
-		Document document = RestXmlHelper.getDocument(API_ROOT + "Updates.php?type=none");
+		Document document = HttpUtils.getDocument(API_ROOT + "Updates.php?type=none");
 		NodeList elementsByTagName = document.getElementsByTagName("Time");
 		if (elementsByTagName.getLength() > 0)
 		{
@@ -144,7 +157,7 @@ public class TheTvDbEtl
 		}
 		else
 		{
-			String allSeriesPage = RestXmlHelper.httpGet(TVDB_ALL_SERIES);
+			String allSeriesPage = HttpUtils.httpGet(TVDB_ALL_SERIES);
 			Pattern p = Pattern.compile("\\bid=(\\d+)");
 			Matcher matcher = p.matcher(allSeriesPage);
 			while (matcher.find())
