@@ -20,6 +20,7 @@ import org.w3c.dom.NodeList;
 
 import com.watchingstuff.storage.IPersistenceManager;
 import com.watchingstuff.utils.HttpUtils;
+import com.watchingstuff.utils.ZipUtils;
 
 /**
  * Has operations to start a new database from scratch or update an existing
@@ -99,7 +100,11 @@ public class TheTvDbEtl
 		try
 		{
 			ZipInputStream seriesZip = HttpUtils.downloadZip(seriesUrl);
-			
+			Document seriesOutline = ZipUtils.getDocumentFromZip(seriesZip, "en.xml");
+			if (seriesOutline != null)
+			{
+				LOGGER.info(seriesOutline.toString());
+			}
 
 		}
 		catch (IOException e)
