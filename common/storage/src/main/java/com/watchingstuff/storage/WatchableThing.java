@@ -3,8 +3,9 @@
  */
 package com.watchingstuff.storage;
 
-import java.util.Date;
 import java.util.List;
+
+import org.joda.time.DateTime;
 
 /**
  * @author kruser
@@ -51,14 +52,14 @@ public abstract class WatchableThing extends BaseDBObject
 		return (String) get(PROP_SOURCE_ID);
 	}
 
-	public void setAirDate(Date date)
+	public void setAirDate(DateTime date)
 	{
 		put(PROP_AIR_DATE, date);
 	}
 
-	public Date getAirDate()
+	public DateTime getAirDate()
 	{
-		return (Date) get(PROP_AIR_DATE);
+		return (DateTime) get(PROP_AIR_DATE);
 	}
 
 	public void setName(String name)
