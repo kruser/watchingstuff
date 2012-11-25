@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Actors>
+	<Actor>
+		<id>27747</id>
+		<Image>actors/27747.jpg</Image>
+		<Name>Matthew Fox</Name>
+		<Role>Jack Shephard</Role>
+		<SortOrder>0</SortOrder>
+	</Actor>
+	<Actor>
+		<id>27745</id>
+		<Image>actors/27745.jpg</Image>
+		<Name>Terry O'Quinn</Name>
+		<Role>John Locke</Role>
+		<SortOrder>0</SortOrder>
+	</Actor>
+	<Actor>
+		<id>27741</id>
+		<Image>actors/27741.jpg</Image>
+		<Name>Evangeline Lilly</Name>
+		<Role>Kate Austen</Role>
+		<SortOrder>0</SortOrder>
+	</Actor>
+	<Actor>
+		<id>27749</id>
+		<Image>actors/27749.jpg</Image>
+		<Name>Naveen Andrews</Name>
+		<Role>Sayid Jarrah</Role>
+		<SortOrder>1</SortOrder>
+	</Actor>
+	<Actor>
+		<id>27742</id>
+		<Image>actors/27742.jpg</Image>
+		<Name>Daniel Dae Kim</Name>
+		<Role>Jin Kwon</Role>
+		<SortOrder>1</SortOrder>
+	</Actor>
+	<Actor>
+		<id>27740</id>
+		<Image>actors/27740.jpg</Image>
+		<Name>Yunjin Kim</Name>
+		<Role>Sun Kwon</Role>
+		<SortOrder>1</SortOrder>
+	</Actor>
+	<Actor>
+		<id>27739</id>
+		<Image>actors/27739.jpg</Image>
+		<Name>Josh Holloway</Name>
+		<Role>James 'Sawyer' Ford</Role>
+		<SortOrder>1</SortOrder>
+	</Actor>
+	<Actor>
+		<id>27737</id>
+		<Image>actors/27737.jpg</Image>
+		<Name>Jorge Garcia</Name>
+		<Role>Hugo 'Hurley' Reyes</Role>
+		<SortOrder>1</SortOrder>
+	</Actor>
+	<Actor>
+		<id>77858</id>
+		<Image>actors/77858.jpg</Image>
+		<Name>Elizabeth Mitchell</Name>
+		<Role>Juliet Burke</Role>
+		<SortOrder>2</SortOrder>
+	</Actor>
+	<Actor>
+		<id>77846</id>
+		<Image>actors/77846.jpg</Image>
+		<Name>Henry Ian Cusick</Name>
+		<Role>Desmond David Hume</Role>
+		<SortOrder>2</SortOrder>
+	</Actor>
+	<Actor>
+		<id>77845</id>
+		<Image>actors/77845.jpg</Image>
+		<Name>Michael Emerson</Name>
+		<Role>Benjamin Linus</Role>
+		<SortOrder>2</SortOrder>
+	</Actor>
+	<Actor>
+		<id>27748</id>
+		<Image>actors/27748.jpg</Image>
+		<Name>Dominic Monaghan</Name>
+		<Role>Charlie Pace</Role>
+		<SortOrder>2</SortOrder>
+	</Actor>
+	<Actor>
+		<id>27746</id>
+		<Image>actors/27746.jpg</Image>
+		<Name>Emilie de Ravin</Name>
+		<Role>Claire Littleton</Role>
+		<SortOrder>2</SortOrder>
+	</Actor>
+	<Actor>
+		<id>27744</id>
+		<Image>actors/27744.jpg</Image>
+		<Name>Harold Perrineau Jr.</Name>
+		<Role>Michael Dawson|Kevin Johnson</Role>
+		<SortOrder>2</SortOrder>
+	</Actor>
+	<Actor>
+		<id>27743</id>
+		<Image>actors/27743.jpg</Image>
+		<Name>Ian Somerhalder</Name>
+		<Role>Boone Carlyle</Role>
+		<SortOrder>2</SortOrder>
+	</Actor>
+	<Actor>
+		<id>27738</id>
+		<Image>actors/27738.jpg</Image>
+		<Name>Maggie Grace</Name>
+		<Role>Shannon Rutherford</Role>
+		<SortOrder>2</SortOrder>
+	</Actor>
+	<Actor>
+		<id>27736</id>
+		<Image>actors/27736.jpg</Image>
+		<Name>Malcolm David Kelley</Name>
+		<Role>Walt Lloyd</Role>
+		<SortOrder>2</SortOrder>
+	</Actor>
+	<Actor>
+		<id>98021</id>
+		<Image>actors/98021.jpg</Image>
+		<Name>John Terry</Name>
+		<Role>Christian Shephard</Role>
+		<SortOrder>3</SortOrder>
+	</Actor>
+	<Actor>
+		<id>80669</id>
+		<Image>actors/80669.jpg</Image>
+		<Name>Andrew Divoff</Name>
+		<Role>Mikhail Bakunin</Role>
+		<SortOrder>3</SortOrder>
+	</Actor>
+	<Actor>
+		<id>80629</id>
+		<Image>actors/80629.jpg</Image>
+		<Name>Sam Anderson</Name>
+		<Role>Bernard Nadler</Role>
+		<SortOrder>3</SortOrder>
+	</Actor>
+	<Actor>
+		<id>80628</id>
+		<Image>actors/80628.jpg</Image>
+		<Name>M.C. Gainey</Name>
+		<Role>Tom</Role>
+		<SortOrder>3</SortOrder>
+	</Actor>
+	<Actor>
+		<id>80611</id>
+		<Image>actors/80611.jpg</Image>
+		<Name>Zuleikha Robinson</Name>
+		<Role>Ilana</Role>
+		<SortOrder>3</SortOrder>
+	</Actor>
+	<Actor>
+		<id>80578</id>
+		<Image>actors/80578.jpg</Image>
+		<Name>L. Scott Caldwell</Name>
+		<Role>Rose Henderson</Role>
+		<SortOrder>3</SortOrder>
+	</Actor>
+	<Actor>
+		<id>79780</id>
+		<Image>actors/79780.jpg</Image>
+		<Name>Nestor Carbonell</Name>
+		<Role>Richard Alpert</Role>
+		<SortOrder>3</SortOrder>
+	</Actor>
+	<Actor>
+		<id>79779</id>
+		<Image>actors/79779.jpg</Image>
+		<Name>Kevin Durand</Name>
+		<Role>Martin Keamy</Role>
+		<SortOrder>3</SortOrder>
+	</Actor>
+	<Actor>
+		<id>79778</id>
+		<Image>actors/79778.jpg</Image>
+		<Name>Jeff Fahey</Name>
+		<Role>Frank Lapidus</Role>
+		<SortOrder>3</SortOrder>
+	</Actor>
+	<Actor>
+		<id>79777</id>
+		<Image>actors/79777.jpg</Image>
+		<Name>Tania Raymonde</Name>
+		<Role>Alexandra Rousseau</Role>
+		<SortOrder>3</SortOrder>
+	</Actor>
+	<Actor>
+		<id>79776</id>
+		<Image>actors/79776.jpg</Image>
+		<Name>Mira Furlan</Name>
+		<Role>Danielle Rousseau</Role>
+		<SortOrder>3</SortOrder>
+	</Actor>
+	<Actor>
+		<id>79775</id>
+		<Image>actors/79775.jpg</Image>
+		<Name>Alan Dale</Name>
+		<Role>Charles Widmore</Role>
+		<SortOrder>3</SortOrder>
+	</Actor>
+	<Actor>
+		<id>79774</id>
+		<Image>actors/79774.jpg</Image>
+		<Name>Sonya Walger</Name>
+		<Role>Penelope &quot;Penny&quot; Widmore</Role>
+		<SortOrder>3</SortOrder>
+	</Actor>
+	<Actor>
+		<id>78476</id>
+		<Image>actors/78476.jpg</Image>
+		<Name>Rebecca Mader</Name>
+		<Role>Charlotte Lewis</Role>
+		<SortOrder>3</SortOrder>
+	</Actor>
+	<Actor>
+		<id>78475</id>
+		<Image>actors/78475.jpg</Image>
+		<Name>Ken Leung</Name>
+		<Role>Miles Straume</Role>
+		<SortOrder>3</SortOrder>
+	</Actor>
+	<Actor>
+		<id>78474</id>
+		<Image>actors/78474.jpg</Image>
+		<Name>Jeremy Davies</Name>
+		<Role>Daniel Faraday</Role>
+		<SortOrder>3</SortOrder>
+	</Actor>
+	<Actor>
+		<id>77857</id>
+		<Image>actors/77857.jpg</Image>
+		<Name>Kiele Sanchez</Name>
+		<Role>Nikki Fernandez</Role>
+		<SortOrder>3</SortOrder>
+	</Actor>
+	<Actor>
+		<id>77856</id>
+		<Image>actors/77856.jpg</Image>
+		<Name>Rodrigo Santoro</Name>
+		<Role>Paulo</Role>
+		<SortOrder>3</SortOrder>
+	</Actor>
+	<Actor>
+		<id>77855</id>
+		<Image>actors/77855.jpg</Image>
+		<Name>Cynthia Watros</Name>
+		<Role>Libby</Role>
+		<SortOrder>3</SortOrder>
+	</Actor>
+	<Actor>
+		<id>77854</id>
+		<Image>actors/77854.jpg</Image>
+		<Name>Adewale Akinnuoye-Agbaje</Name>
+		<Role>Mr. Eko</Role>
+		<SortOrder>3</SortOrder>
+	</Actor>
+	<Actor>
+		<id>27750</id>
+		<Image>actors/27750.jpg</Image>
+		<Name>Michelle Rodriguez</Name>
+		<Role>Ana-Lucia Cortez</Role>
+		<SortOrder>3</SortOrder>
+	</Actor>
+</Actors>

@@ -90,7 +90,7 @@ public class TheTvDbEtl
 
 	/**
 	 * Gets series and all episode information. Designed to be called to
-	 * populate an series from scratch
+	 * populate a series from scratch
 	 * 
 	 * @param seriesId
 	 */
