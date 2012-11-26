@@ -5,6 +5,9 @@ package com.watchingstuff.etl.thetvdb;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -18,6 +21,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import com.watchingstuff.storage.TelevisionEpisode;
 import com.watchingstuff.storage.TelevisionSeries;
 
 /**
@@ -31,9 +35,14 @@ public class SeriesParser extends DefaultHandler
 	private static Logger LOGGER = Logger.getLogger(SeriesParser.class);
 
 	private TelevisionSeries series;
+	private List<TelevisionEpisode> episodes = new ArrayList<TelevisionEpisode>();
+	private TelevisionEpisode currentEpisode;
+	private DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
+	
 	private SAXParserFactory factory;
 	private SAXParser saxParser;
 	private StringBuilder chars = new StringBuilder();
+	
 	private boolean inSeries = false;
 
 	public SeriesParser()
@@ -83,6 +92,16 @@ public class SeriesParser extends DefaultHandler
 	{
 		return series;
 	}
+	
+	/**
+	 * Get the episodes as parsed by thetvdb XML
+	 * 
+	 * @return
+	 */
+	public List<TelevisionEpisode> getEpisodes()
+	{
+		return episodes;
+	}
 
 	@Override
 	public void characters(char[] ch, int start, int length) throws SAXException
@@ -104,6 +123,14 @@ public class SeriesParser extends DefaultHandler
 		if (qName.equals("Series"))
 		{
 			inSeries = false;
+		}
+		else if (qName.equals("Episode"))
+		{
+			if (currentEpisode != null)
+			{
+				episodes.add(currentEpisode);
+				currentEpisode = null;
+			}
 		}
 
 		try
@@ -129,15 +156,46 @@ public class SeriesParser extends DefaultHandler
 				}
 				else if (qName.equals("FirstAired"))
 				{
-					DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
 					DateTime dt = formatter.parseDateTime(chars.toString());
 					series.setAirDate(dt);
+				}
+			}
+			else if (currentEpisode != null)
+			{
+				if (qName.equals("id"))
+				{
+					currentEpisode.setSourceId(chars.toString());
+				}
+				else if (qName.equals("Overview"))
+				{
+					currentEpisode.setSynopsis(chars.toString());
+				}
+				else if (qName.equals("EpisodeName"))
+				{
+					currentEpisode.setName(chars.toString());
+				}
+				else if (qName.equals("EpisodeNumber"))
+				{
+					currentEpisode.setEpisodeNumber(Integer.parseInt(chars.toString()));
+				}
+				else if (qName.equals("SeasonNumber"))
+				{
+					currentEpisode.setSeasonNumber(Integer.parseInt(chars.toString()));
+				}
+				else if (qName.equals("FirstAired"))
+				{
+					DateTime dt = formatter.parseDateTime(chars.toString());
+					currentEpisode.setAirDate(dt);
 				}
 			}
 		}
 		catch (NumberFormatException e)
 		{
 			LOGGER.error("Error parsing a number", e);
+		}
+		catch (IllegalArgumentException e)
+		{
+			LOGGER.error("Error parsing a date", e);
 		}
 	}
 
@@ -156,6 +214,15 @@ public class SeriesParser extends DefaultHandler
 		{
 			inSeries = true;
 			series = new TelevisionSeries();
+			series.setId(UUID.randomUUID());
+		}
+		else if (qName.equals("Episode"))
+		{
+			currentEpisode = new TelevisionEpisode();
+			if (series != null)
+			{
+				currentEpisode.setSeriesId(series.getId());
+			}
 		}
 	}
 }

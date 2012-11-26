@@ -4,6 +4,7 @@
 package com.watchingstuff.storage;
 
 import java.net.UnknownHostException;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 
@@ -20,6 +21,8 @@ import com.mongodb.Mongo;
 public class PersistenceManager implements IPersistenceManager
 {
 	private static final String COLLECTION_PROPERTIES = "properties";
+	private static final String COLLECTION_SERIES = "series";
+	private static final String COLLECTION_EPISODE = "episode";
 	private static final String PROPERTY_NAME_VALUE = "value";
 	private static final String PROPERTY_NAME_KEY = "key";
 	private static Logger LOGGER = Logger.getLogger(PersistenceManager.class.getName());
@@ -89,5 +92,50 @@ public class PersistenceManager implements IPersistenceManager
 			collection.save(newDoc);
 		}
 	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see com.watchingstuff.storage.IPersistenceManager#insert(java.util.List)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public void insert(List<? extends BaseDBObject> objects)
+	{
+		if (objects != null && objects.size() > 0)
+		{
+			String collectionName = getCollectionForObject(objects.get(0));
+			DBCollection collection = databaseConnection.getCollection(collectionName);
+			collection.insert((List<DBObject>)objects);
+		}
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see com.watchingstuff.storage.IPersistenceManager#save(com.watchingstuff.storage.BaseDBObject)
+	 */
+	@Override
+	public void save(BaseDBObject object)
+	{
+		String collectionName = getCollectionForObject(object);
+		DBCollection collection = databaseConnection.getCollection(collectionName);
+		collection.save(object);	
+	}
 
+	/**
+	 * Looks up the collection based on the provided type. Throws an exception if it can't save.
+	 * @param baseDBObject
+	 * @return
+	 */
+	private String getCollectionForObject(BaseDBObject dbObj)
+	{
+		if (dbObj instanceof TelevisionSeries)
+		{
+			return COLLECTION_SERIES;
+		}
+		else if (dbObj instanceof TelevisionEpisode)
+		{
+			return COLLECTION_EPISODE;
+		}
+		throw new RuntimeException("No collection found for '" + dbObj.getClass().getName() + "'");
+	}
 }

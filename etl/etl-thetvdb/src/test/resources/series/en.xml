@@ -6,7 +6,7 @@
   <Airs_DayOfWeek>Tuesday</Airs_DayOfWeek>
   <Airs_Time>9:00 PM</Airs_Time>
   <ContentRating>TV-14</ContentRating>
-  <FirstAired>2004-09-22</FirstAired>
+  <FirstAired>1954-09-22</FirstAired> <!-- To test dates pre 1/1/1970 -->
   <Genre>|Action and Adventure|Drama|Science-Fiction|</Genre>
   <IMDB_ID>tt0411008</IMDB_ID>
   <Language>en</Language>

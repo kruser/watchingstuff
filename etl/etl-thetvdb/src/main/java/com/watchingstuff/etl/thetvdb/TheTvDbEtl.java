@@ -4,6 +4,7 @@
 package com.watchingstuff.etl.thetvdb;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,6 +20,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.watchingstuff.storage.IPersistenceManager;
+import com.watchingstuff.storage.TelevisionEpisode;
+import com.watchingstuff.storage.TelevisionSeries;
 import com.watchingstuff.utils.HttpUtils;
 import com.watchingstuff.utils.ZipUtils;
 
@@ -100,12 +103,15 @@ public class TheTvDbEtl
 		try
 		{
 			ZipInputStream seriesZip = HttpUtils.downloadZip(seriesUrl);
-			Document seriesOutline = ZipUtils.getDocumentFromZip(seriesZip, "en.xml");
-			if (seriesOutline != null)
-			{
-				LOGGER.info(seriesOutline.toString());
-			}
-
+			InputStream seriesAndEpisodesXml = ZipUtils.getFileFromZip(seriesZip, "en.xml");
+			SeriesParser seriesParser = new SeriesParser();
+			seriesParser.parse(seriesAndEpisodesXml);
+			
+			TelevisionSeries series = seriesParser.getSeries();
+			persistenceManager.save(series);
+			
+			List<TelevisionEpisode> episodes = seriesParser.getEpisodes();
+			persistenceManager.insert(episodes);
 		}
 		catch (IOException e)
 		{
