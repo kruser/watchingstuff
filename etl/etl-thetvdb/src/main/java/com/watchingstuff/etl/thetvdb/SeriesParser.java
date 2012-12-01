@@ -5,7 +5,11 @@ package com.watchingstuff.etl.thetvdb;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,9 +18,6 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.log4j.Logger;
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -37,7 +38,7 @@ public class SeriesParser extends DefaultHandler
 	private TelevisionSeries series;
 	private List<TelevisionEpisode> episodes = new ArrayList<TelevisionEpisode>();
 	private TelevisionEpisode currentEpisode;
-	private DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
+	private DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 	
 	private SAXParserFactory factory;
 	private SAXParser saxParser;
@@ -156,8 +157,8 @@ public class SeriesParser extends DefaultHandler
 				}
 				else if (qName.equals("FirstAired"))
 				{
-					DateTime dt = formatter.parseDateTime(chars.toString());
-					series.setAirDate(dt);
+					Date date = format.parse(chars.toString());
+					series.setAirDate(date);
 				}
 			}
 			else if (currentEpisode != null)
@@ -184,8 +185,9 @@ public class SeriesParser extends DefaultHandler
 				}
 				else if (qName.equals("FirstAired"))
 				{
-					DateTime dt = formatter.parseDateTime(chars.toString());
-					currentEpisode.setAirDate(dt);
+					//DateTime dt = formatter.parseDateTime(chars.toString());
+					Date date = format.parse(chars.toString());
+					currentEpisode.setAirDate(date);
 				}
 			}
 		}
@@ -194,6 +196,10 @@ public class SeriesParser extends DefaultHandler
 			LOGGER.error("Error parsing a number", e);
 		}
 		catch (IllegalArgumentException e)
+		{
+			LOGGER.error("Error parsing a date", e);
+		}
+		catch (ParseException e)
 		{
 			LOGGER.error("Error parsing a date", e);
 		}

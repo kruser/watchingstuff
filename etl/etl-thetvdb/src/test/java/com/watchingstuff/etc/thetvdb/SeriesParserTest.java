@@ -4,9 +4,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
-import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,7 +18,8 @@ import com.watchingstuff.storage.TelevisionSeries;
 public class SeriesParserTest
 {
 	private SeriesParser seriesParser;
-	
+    private SimpleDateFormat dateFormat =  new SimpleDateFormat("yyyy-MM-dd");
+
 	@Before
 	public void setUp() throws Exception
 	{
@@ -29,9 +31,10 @@ public class SeriesParserTest
 
 	/**
 	 * Tests out the series that gets parsed from a full episode's worth of data
+	 * @throws ParseException 
 	 */
 	@Test
-	public void testSeriesParser()
+	public void testSeriesParser() throws ParseException
 	{
 		TelevisionSeries series = seriesParser.getSeries();
 		assertNotNull(series);
@@ -40,14 +43,15 @@ public class SeriesParserTest
 		assertEquals("After their plane, Oceanic Air flight 815, tore apart whilst thousands of miles off course, the survivors find themselves on a mysterious deserted island where they soon find out they are not alone.", series.getSynopsis());
 		assertEquals(60, series.getRuntime().intValue());
 		assertEquals("73739", series.getSourceId());
-		assertEquals(new DateTime(1954, 9, 22, 0, 0), series.getAirDate());
+		assertEquals(dateFormat.parse("1954-09-22"), series.getAirDate());
 	}
 	
 	/**
 	 * Test out all of the episodes that are parsed from a full series worth of data
+	 * @throws ParseException 
 	 */
 	@Test
-	public void testEpisodeParser()
+	public void testEpisodeParser() throws ParseException
 	{
 		List<TelevisionEpisode> episodes = seriesParser.getEpisodes();
 		assertEquals(149, episodes.size());
@@ -58,7 +62,9 @@ public class SeriesParserTest
 		assertEquals("Flashbacks of the core characters illustrating who they were and what they were doing before the crash, a look at the island itself, and a preview of the big season finale.", episode.getSynopsis());
 		assertEquals(1, episode.getEpisodeNumber().intValue());
 		assertEquals(0, episode.getSeasonNumber().intValue());
-		assertEquals(new DateTime(2005, 4, 27, 0, 0), episode.getAirDate());
+		
+		assertEquals(dateFormat.parse("2005-04-27"), episode.getAirDate());
+		
 		assertEquals(seriesParser.getSeries().getId(), episode.getSeriesId());
 	}
 

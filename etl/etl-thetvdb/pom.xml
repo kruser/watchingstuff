@@ -29,15 +29,6 @@
 	</dependencyManagement>
 	<dependencies>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>com.watchingstuff</groupId>
 			<artifactId>storage</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
@@ -46,6 +37,15 @@
 			<groupId>com.watchingstuff</groupId>
 			<artifactId>utils</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
