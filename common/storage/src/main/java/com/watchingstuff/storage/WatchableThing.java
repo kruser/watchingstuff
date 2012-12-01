@@ -11,14 +11,15 @@ import java.util.List;
  */
 public abstract class WatchableThing extends BaseDBObject
 {
-	public enum WatchableThingType { TelevisionEpisode, Movie, };
+	public enum WatchableThingType { TelevisionEpisode, Movie, TelevisionSeries, };
 
-	private static final String PROP_TYPE = "type";
-	private static final String PROP_RUNTIME = "runtime";
-	private static final String PROP_SOURCE_ID = "sourceId";
-	private static final String PROP_SYNOPSIS = "synopsis";
-	private static final String PROP_NAME = "name";
-	private static final String PROP_AIR_DATE = "airDate";
+	public static final String PROP_TYPE = "type";
+	public static final String PROP_RUNTIME = "runtime";
+	public static final String PROP_SOURCE_ID = "sourceId";
+	public static final String PROP_SYNOPSIS = "synopsis";
+	public static final String PROP_NAME = "name";
+	public static final String PROP_AIR_DATE = "airDate";
+	
 	private static final long serialVersionUID = -2118893394042851337L;
 
 	protected void setType(WatchableThingType type)

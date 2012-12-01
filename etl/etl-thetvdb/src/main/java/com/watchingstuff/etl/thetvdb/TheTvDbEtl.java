@@ -19,9 +19,11 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import com.watchingstuff.storage.BaseDBObject;
 import com.watchingstuff.storage.IPersistenceManager;
 import com.watchingstuff.storage.TelevisionEpisode;
 import com.watchingstuff.storage.TelevisionSeries;
+import com.watchingstuff.storage.WatchingStuffCollection;
 import com.watchingstuff.utils.HttpUtils;
 import com.watchingstuff.utils.ZipUtils;
 
@@ -83,7 +85,7 @@ public class TheTvDbEtl
 		LOGGER.debug(String.format("Updating series %d", seriesId));
 		if (doesSeriesExist(seriesId))
 		{
-
+			LOGGER.info("Series " + seriesId + " already exists... updating");
 		}
 		else
 		{
@@ -127,8 +129,8 @@ public class TheTvDbEtl
 	 */
 	private boolean doesSeriesExist(Long seriesId)
 	{
-		// TODO Auto-generated method stub
-		return false;
+		BaseDBObject series = persistenceManager.getObjectByProperty(TelevisionSeries.PROP_SOURCE_ID, seriesId.toString(), WatchingStuffCollection.SERIES);
+		return (series != null);
 	}
 
 	/**

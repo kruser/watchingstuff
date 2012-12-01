@@ -4,6 +4,7 @@
 package com.watchingstuff.storage;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author kruser
@@ -42,4 +43,24 @@ public interface IPersistenceManager
 	 * @param series
 	 */
 	public void save(BaseDBObject series);
+	
+	/**
+	 * Retrieve an object by it's ID
+	 * 
+	 * @param id
+	 * @param collection
+	 * @return
+	 */
+	public BaseDBObject getObjectById(UUID id, WatchingStuffCollection collection);
+	
+	/**
+	 * Find an object by an arbitrary property
+	 * 
+	 * @param property
+	 * @param value
+	 * @param collection
+	 * @return
+	 */
+	public BaseDBObject getObjectByProperty(String property, Object value, WatchingStuffCollection collection);
+
 }

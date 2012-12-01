@@ -20,6 +20,7 @@ public class TelevisionEpisode extends WatchableThing
 	public TelevisionEpisode()
 	{
 		setType(WatchableThingType.TelevisionEpisode);
+		setId(UUID.randomUUID());
 	}
 	
 	public void setSeriesId(UUID seriesId)

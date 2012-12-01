@@ -185,7 +185,6 @@ public class SeriesParser extends DefaultHandler
 				}
 				else if (qName.equals("FirstAired"))
 				{
-					//DateTime dt = formatter.parseDateTime(chars.toString());
 					Date date = format.parse(chars.toString());
 					currentEpisode.setAirDate(date);
 				}
@@ -197,11 +196,11 @@ public class SeriesParser extends DefaultHandler
 		}
 		catch (IllegalArgumentException e)
 		{
-			LOGGER.error("Error parsing a date", e);
+			LOGGER.warn("Error parsing a date: " + e.getMessage());
 		}
 		catch (ParseException e)
 		{
-			LOGGER.error("Error parsing a date", e);
+			LOGGER.warn("Error parsing a date: " + e.getMessage());
 		}
 	}
 
