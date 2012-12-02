@@ -52,9 +52,7 @@ public class PersistenceManager implements IPersistenceManager
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * com.watchingstuff.storage.IPersistenceManager#getProperty(java.lang.String
-	 * )
+	 * @see com.watchingstuff.storage.IPersistenceManager#getProperty(java.lang.String )
 	 */
 	@Override
 	public Object getProperty(String propertyName)
@@ -74,9 +72,7 @@ public class PersistenceManager implements IPersistenceManager
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * com.watchingstuff.storage.IPersistenceManager#saveProperty(java.lang.
-	 * String, java.lang.Object)
+	 * @see com.watchingstuff.storage.IPersistenceManager#saveProperty(java.lang. String, java.lang.Object)
 	 */
 	@Override
 	public void saveProperty(String propertyName, Object propertyValue)
@@ -117,9 +113,7 @@ public class PersistenceManager implements IPersistenceManager
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * com.watchingstuff.storage.IPersistenceManager#save(com.watchingstuff.
-	 * storage.BaseDBObject)
+	 * @see com.watchingstuff.storage.IPersistenceManager#save(com.watchingstuff. storage.BaseDBObject)
 	 */
 	@Override
 	public void save(BaseDBObject object)
@@ -132,9 +126,8 @@ public class PersistenceManager implements IPersistenceManager
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * com.watchingstuff.storage.IPersistenceManager#getObjectById(java.util
-	 * .UUID, com.watchingstuff.storage.IPersistenceManager.DBCollectionName)
+	 * @see com.watchingstuff.storage.IPersistenceManager#getObjectById(java.util .UUID,
+	 * com.watchingstuff.storage.IPersistenceManager.DBCollectionName)
 	 */
 	@Override
 	public BaseDBObject getObjectById(UUID id, WatchingStuffCollection collection)
@@ -145,9 +138,7 @@ public class PersistenceManager implements IPersistenceManager
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * com.watchingstuff.storage.IPersistenceManager#getObjectByProperty(java
-	 * .lang.String, java.lang.Object,
+	 * @see com.watchingstuff.storage.IPersistenceManager#getObjectByProperty(java .lang.String, java.lang.Object,
 	 * com.watchingstuff.storage.WatchingStuffCollection)
 	 */
 	@Override
@@ -161,8 +152,7 @@ public class PersistenceManager implements IPersistenceManager
 	}
 
 	/**
-	 * Looks up the collection based on the provided type. Throws an exception
-	 * if it can't save.
+	 * Looks up the collection based on the provided type. Throws an exception if it can't save.
 	 * 
 	 * @param baseDBObject
 	 * @return
@@ -171,7 +161,7 @@ public class PersistenceManager implements IPersistenceManager
 	{
 		for (WatchingStuffCollection col : WatchingStuffCollection.values())
 		{
-			if (col.getClass().equals(dbObj.getClass()))
+			if (col.getSerializationClass().equals(dbObj.getClass()))
 			{
 				return col;
 			}

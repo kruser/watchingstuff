@@ -39,11 +39,11 @@ public class SeriesParser extends DefaultHandler
 	private List<TelevisionEpisode> episodes = new ArrayList<TelevisionEpisode>();
 	private TelevisionEpisode currentEpisode;
 	private DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-	
+
 	private SAXParserFactory factory;
 	private SAXParser saxParser;
 	private StringBuilder chars = new StringBuilder();
-	
+
 	private boolean inSeries = false;
 
 	public SeriesParser()
@@ -93,7 +93,7 @@ public class SeriesParser extends DefaultHandler
 	{
 		return series;
 	}
-	
+
 	/**
 	 * Get the episodes as parsed by thetvdb XML
 	 * 
@@ -192,15 +192,15 @@ public class SeriesParser extends DefaultHandler
 		}
 		catch (NumberFormatException e)
 		{
-			LOGGER.error("Error parsing a number", e);
+			LOGGER.debug("Error parsing a number: " + e.getMessage());
 		}
 		catch (IllegalArgumentException e)
 		{
-			LOGGER.warn("Error parsing a date: " + e.getMessage());
+			LOGGER.debug("Error parsing a date: " + e.getMessage());
 		}
 		catch (ParseException e)
 		{
-			LOGGER.warn("Error parsing a date: " + e.getMessage());
+			LOGGER.debug("Error parsing a date: " + e.getMessage());
 		}
 	}
 
