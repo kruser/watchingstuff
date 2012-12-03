@@ -44,6 +44,9 @@ public class SeriesParserTest
 		assertEquals(60, series.getRuntime().intValue());
 		assertEquals("73739", series.getSourceId());
 		assertEquals(dateFormat.parse("1954-09-22"), series.getAirDate());
+		assertEquals(3, series.getGenres().size());
+		assertEquals("Action and Adventure", series.getGenres().get(0));
+		assertEquals("ABC", series.getNetwork());
 	}
 	
 	/**

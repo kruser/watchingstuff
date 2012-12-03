@@ -4,10 +4,10 @@
 package com.watchingstuff.etl.thetvdb;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.ZipInputStream;
@@ -20,7 +20,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import com.watchingstuff.storage.Actor;
 import com.watchingstuff.storage.IPersistenceManager;
+import com.watchingstuff.storage.Role;
 import com.watchingstuff.storage.TelevisionEpisode;
 import com.watchingstuff.storage.TelevisionSeries;
 import com.watchingstuff.storage.WatchingStuffCollection;
@@ -38,7 +40,7 @@ import com.watchingstuff.utils.ZipUtils;
 @Component
 public class TheTvDbEtl
 {
-	private static final boolean DEV_MODE = false;
+	private static final boolean DEV_MODE = true;
 	/** this key is registered to ryan@kruseonline.net **/
 	private static final String TVDB_API_KEY = "6C5E6E03B728CC24";
 	private static final String API_ROOT = "http://www.thetvdb.com/api/";
@@ -105,13 +107,20 @@ public class TheTvDbEtl
 	 */
 	private void saveSeriesInfoOnly(TelevisionSeries series)
 	{
+		String actorsUrl = String.format("%s%s/series/%s/actors.xml", API_ROOT, TVDB_API_KEY, series.getSourceId());
+		String actorsXml = HttpUtils.httpGet(actorsUrl);
+		ActorsParser actorsParser = new ActorsParser();
+		actorsParser.parse(IOUtils.toInputStream(actorsXml));
+		List<Role> cast = actorsParser.getCast();
+		saveActors(cast);
+
 		String seriesUrl = String.format("%s%s/series/%s/en.xml", API_ROOT, TVDB_API_KEY, series.getSourceId());
 		String enXml = HttpUtils.httpGet(seriesUrl);
-
 		SeriesParser seriesParser = new SeriesParser();
 		seriesParser.parse(IOUtils.toInputStream(enXml));
 
 		TelevisionSeries newSeries = seriesParser.getSeries();
+		newSeries.setCast(cast);
 		newSeries.setId(series.getId());
 		persistenceManager.save(newSeries);
 	}
@@ -127,11 +136,18 @@ public class TheTvDbEtl
 		try
 		{
 			ZipInputStream seriesZip = HttpUtils.downloadZip(seriesUrl);
-			InputStream seriesAndEpisodesXml = ZipUtils.getFileFromZip(seriesZip, "en.xml");
-			SeriesParser seriesParser = new SeriesParser();
-			seriesParser.parse(seriesAndEpisodesXml);
+			Map<String, String> files = ZipUtils.getTextFilesFromZip(seriesZip);
 
+			ActorsParser actorsParser = new ActorsParser();
+			actorsParser.parse(IOUtils.toInputStream(files.get("actors.xml")));
+			List<Role> cast = actorsParser.getCast();
+			saveActors(cast);
+
+			SeriesParser seriesParser = new SeriesParser();
+			seriesParser.parse(IOUtils.toInputStream(files.get("en.xml")));
 			TelevisionSeries series = seriesParser.getSeries();
+			series.setCast(cast);
+
 			persistenceManager.save(series);
 
 			List<TelevisionEpisode> episodes = seriesParser.getEpisodes();
@@ -140,6 +156,26 @@ public class TheTvDbEtl
 		catch (IOException e)
 		{
 			LOGGER.error(String.format("Unable to read series %s", seriesId), e);
+		}
+	}
+
+	/**
+	 * Save or update all of the actors in the provided roles off to their own collection
+	 * 
+	 * @param cast
+	 */
+	private void saveActors(List<Role> cast)
+	{
+		for (Role role : cast)
+		{
+			Actor actor = role.getActor();
+			
+			Actor savedActor = (Actor) persistenceManager.getObjectByProperty(Actor.PROP_SOURCE_ID, actor.getSourceId(), WatchingStuffCollection.ACTORS);
+			if (savedActor != null)
+			{
+				actor.setId(savedActor.getId());
+			}
+			persistenceManager.save(actor);
 		}
 	}
 

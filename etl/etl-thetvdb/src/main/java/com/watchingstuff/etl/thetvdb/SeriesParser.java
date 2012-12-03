@@ -18,6 +18,7 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.log4j.Logger;
+import org.springframework.util.StringUtils;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -159,6 +160,23 @@ public class SeriesParser extends DefaultHandler
 				{
 					Date date = format.parse(chars.toString());
 					series.setAirDate(date);
+				}
+				else if (qName.equals("Network"))
+				{
+					series.setNetwork(chars.toString());
+				}
+				else if (qName.equals("Genre"))
+				{
+					List<String> genres = new ArrayList<String>();
+					String[] split = chars.toString().split("\\|");
+					for (String genre : split)
+					{
+						if (StringUtils.hasLength(genre))
+						{
+							genres.add(genre);
+						}
+					}
+					series.setGenres(genres);
 				}
 			}
 			else if (currentEpisode != null)

@@ -11,7 +11,12 @@ import java.util.List;
  */
 public abstract class WatchableThing extends BaseDBObject
 {
-	public enum WatchableThingType { TelevisionEpisode, Movie, TelevisionSeries, };
+	private static final String PROP_CAST = "cast";
+
+	public enum WatchableThingType
+	{
+		TelevisionEpisode, Movie, TelevisionSeries,
+	};
 
 	public static final String PROP_TYPE = "type";
 	public static final String PROP_RUNTIME = "runtime";
@@ -19,7 +24,8 @@ public abstract class WatchableThing extends BaseDBObject
 	public static final String PROP_SYNOPSIS = "synopsis";
 	public static final String PROP_NAME = "name";
 	public static final String PROP_AIR_DATE = "airDate";
-	
+	public static final String PROP_GENRES = "genres";
+
 	private static final long serialVersionUID = -2118893394042851337L;
 
 	protected void setType(WatchableThingType type)
@@ -29,7 +35,7 @@ public abstract class WatchableThing extends BaseDBObject
 
 	public WatchableThingType getType()
 	{
-		return WatchableThingType.valueOf((String)get(PROP_TYPE));
+		return WatchableThingType.valueOf((String) get(PROP_TYPE));
 	}
 
 	public void setRuntime(int minutes)
@@ -81,16 +87,40 @@ public abstract class WatchableThing extends BaseDBObject
 	{
 		return (String) get(PROP_SYNOPSIS);
 	}
-	
-	public void setRoles(List<Role> roles)
+
+	/**
+	 * 
+	 * @param roles
+	 */
+	public void setCast(List<Role> roles)
 	{
-		put("roles", roles);
+		put(PROP_CAST, roles);
 	}
-	
+
+	/**
+	 * 
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
-	public List<Role> getRoles()
+	public List<Role> getCast()
 	{
-		return (List<Role>) get("roles");
+		return (List<Role>) get(PROP_CAST);
+	}
+
+	public void setGenres(List<String> genres)
+	{
+		put(PROP_GENRES, genres);
+	}
+
+	/**
+	 * String genres that this thing falls under
+	 * 
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List<String> getGenres()
+	{
+		return (List<String>) get(PROP_GENRES);
 	}
 
 }

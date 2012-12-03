@@ -3,8 +3,6 @@
  */
 package com.watchingstuff.storage;
 
-import java.util.UUID;
-
 /**
  * Indicates a role that an actor plays for a television series or movie
  * 
@@ -13,58 +11,46 @@ import java.util.UUID;
 public class Role extends BaseDBObject
 {
 	private static final String PROP_ROLE_NAME = "roleName";
+	private static final String PROP_ACTOR = "actor";
 	private static final long serialVersionUID = -2168381869734990561L;
-	
+
+	/**
+	 * @param roleName
+	 *            The name of the role, i.e. the part they are playing
+	 */
 	public void setRoleName(String roleName)
 	{
 		put(PROP_ROLE_NAME, roleName);
 	}
-	
+
+	/**
+	 * The name of the role, i.e. the part they are playing
+	 * 
+	 * @return
+	 */
 	public String getRoleName()
 	{
-		return (String)get(PROP_ROLE_NAME);
+		return (String) get(PROP_ROLE_NAME);
 	}
-	
-	public void setActorName(String actorName)
-	{
-		put("actorName", actorName);
-	}
-	
-	public String getActorName(String actorName)
-	{
-		return(String) get("actorName");
-	}
-	
-	public void setActorId(UUID actorId)
-	{
-		put("actorId", actorId);
-	}
-	
-	public UUID getActorId()
-	{
-		return (UUID) get("actorId");
-	}
-	
+
 	/**
-	 * Determines the relavance that this role has to the {@link WatchableThing}. 0=more important=leads.
-	 * @param sortOrder
-	 */
-	public void setSortOrder(int sortOrder)
-	{
-		put("sortOrder", sortOrder);
-	}
-	
-	/**
-	 * Determines the relavance that this role has to the {@link WatchableThing}. 0=more important=leads.
+	 * The actor portraying a role
 	 * 
+	 * @param actor
 	 */
-	public int getSortOrder()
+	public void setActor(Actor actor)
 	{
-		Object sortOrderObj = get("sortOrder");
-		if (sortOrderObj != null && sortOrderObj instanceof Integer)
-		{
-			return (Integer)sortOrderObj;
-		}
-		return 0;
+		put(PROP_ACTOR, actor);
 	}
+
+	/**
+	 * The actor portraying a role
+	 * 
+	 * @return
+	 */
+	public Actor getActor()
+	{
+		return (Actor) get(PROP_ACTOR);
+	}
+
 }

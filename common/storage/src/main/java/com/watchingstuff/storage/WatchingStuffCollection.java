@@ -13,7 +13,8 @@ public enum WatchingStuffCollection
 {
 	EPISODES("episodes", TelevisionEpisode.class), 
 	SERIES("series", TelevisionSeries.class), 
-	PROPERTIES("properties", String.class);
+	PROPERTIES("properties", String.class),
+	ACTORS("actors", Actor.class);
 
 	private final String collectionName;
 	@SuppressWarnings("rawtypes")
