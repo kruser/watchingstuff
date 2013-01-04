@@ -118,6 +118,10 @@ public class PersistenceManager implements IPersistenceManager
 	@Override
 	public void save(BaseDBObject object)
 	{
+		if (object.getId() == null)
+		{
+			object.setId(UUID.randomUUID());
+		}
 		WatchingStuffCollection collectionName = getCollectionForObject(object);
 		DBCollection collection = databaseConnection.getCollection(collectionName.getCollectionName());
 		collection.save(object);
