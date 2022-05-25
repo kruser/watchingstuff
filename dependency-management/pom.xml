@@ -9,7 +9,7 @@
 	<name>dependency-management</name>
 	<properties>
 		<jersey-version>1.8</jersey-version>
-		<springframework-version>3.0.5.RELEASE</springframework-version>
+		<springframework-version>5.2.22.RELEASE</springframework-version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
